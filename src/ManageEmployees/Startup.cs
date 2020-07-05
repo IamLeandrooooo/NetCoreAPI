@@ -28,9 +28,7 @@ namespace ManageEmployees
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=ManageEmployees;Trusted_Connection=True;";
-            services.AddDbContext<ManageEmployeesContext>(options => options.UseSqlServer(connection));
-
+            services.AddDbContext<ManageEmployeesContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ManageEmployeesConnection")));
             // Repositories
             services.AddScoped<IContractRepository, ContractRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
@@ -53,7 +51,6 @@ namespace ManageEmployees
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                     options.SerializerSettings.Formatting = Formatting.Indented;
                 });
-
 
         }
         
